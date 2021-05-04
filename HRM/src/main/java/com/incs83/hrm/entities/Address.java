@@ -20,6 +20,7 @@ public class Address {
     private int houseNumber;
     @Column(name = "colony")
     private String colony;
+    public testKey;
 
     public String getId() {
         return id;
