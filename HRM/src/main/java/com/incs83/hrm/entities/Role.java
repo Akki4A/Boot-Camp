@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role extends Parent {
     @Id
     private String id;
     @Column(name = "name")
