@@ -14,6 +14,7 @@ public class Role extends Parent {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "permission")
     private String permission;
 
     public String getId() {
