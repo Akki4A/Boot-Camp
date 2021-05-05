@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 
 @Table(name = "user")
-public class User {
+public class User extends Parent {
     @Id
     private String id;
     @Column(name = "first_name")
