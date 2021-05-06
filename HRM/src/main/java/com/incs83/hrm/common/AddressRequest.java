@@ -2,18 +2,18 @@ package com.incs83.hrm.common;
 
 public class AddressRequest {
 
-    private String id;
+    private int id;
     private String pinCode;
     private String state;
     private String city;
     private int houseNumber;
     private String colony;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

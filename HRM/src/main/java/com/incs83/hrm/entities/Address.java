@@ -1,15 +1,13 @@
 package com.incs83.hrm.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
 public class Address extends Parent  {
     @Id
-    private String id;
+    @GeneratedValue
+    private Integer id;
     @Column(name = "pin_code")
     private String pinCode;
     @Column(name = "state")
@@ -21,11 +19,11 @@ public class Address extends Parent  {
     @Column(name = "colony")
     private String colony;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

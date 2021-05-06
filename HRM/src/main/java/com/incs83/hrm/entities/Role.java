@@ -1,26 +1,26 @@
 package com.incs83.hrm.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
 public class Role extends Parent {
     @Id
-    private String id;
+    @GeneratedValue
+
+    private Integer id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "permission")
     private String permission;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
