@@ -1,8 +1,10 @@
 package com.incs83.hrm.common;
 
+import java.util.UUID;
+
 public class UserRequest {
 
-    private int id;
+    private UUID id;
     private String firstName;
     private String lastName;
     private String gender;
@@ -10,11 +12,11 @@ public class UserRequest {
     private String email;
     private String phoneNumber;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
