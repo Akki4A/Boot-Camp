@@ -1,22 +1,20 @@
 package com.incs83.hrm.common;
 
-import java.util.Date;
-
 public class UserRequest {
 
-    private String id;
+    private int id;
     private String firstName;
     private String lastName;
     private String gender;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String email;
     private String phoneNumber;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,11 +42,11 @@ public class UserRequest {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

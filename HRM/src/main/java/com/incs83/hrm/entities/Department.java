@@ -1,25 +1,23 @@
 package com.incs83.hrm.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "department")
 public class Department extends Parent {
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

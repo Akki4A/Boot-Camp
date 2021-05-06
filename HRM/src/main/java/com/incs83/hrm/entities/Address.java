@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Table(name = "address")
 public class Address extends Parent  {
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
     @Column(name = "pin_code")
     private String pinCode;
     @Column(name = "state")
@@ -18,11 +19,11 @@ public class Address extends Parent  {
     @Column(name = "colony")
     private String colony;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

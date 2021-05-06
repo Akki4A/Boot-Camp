@@ -2,13 +2,13 @@ package com.incs83.hrm.entities;
 
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "user")
 public class User extends Parent {
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -16,17 +16,17 @@ public class User extends Parent {
     @Column(name = "gender")
     private String gender;
     @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    private String dateOfBirth;
     @Column(name = "email")
     private String email;
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class User extends Parent {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
