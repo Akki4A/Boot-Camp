@@ -22,11 +22,11 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public Department getDepartmentById(String id){
+    public Department getDepartmentById(Integer id){
         return departmentRepository.findById(id).orElse(null);
     }
 
-    public void updateDepartment(DepartmentRequest departmentRequest, String id){
+    public void updateDepartment(DepartmentRequest departmentRequest, Integer id){
         Department existingDepartment = departmentRepository.findById(id).orElse(null);
         if (existingDepartment != null) {
             existingDepartment.setName(departmentRequest.getName());
@@ -34,7 +34,7 @@ public class DepartmentService {
             departmentRepository.save(existingDepartment);
         }
     }
-    public void deleteDepartmentById(String id){
+    public void deleteDepartmentById(Integer id){
         departmentRepository.deleteById(id);
     }
 }

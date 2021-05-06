@@ -16,7 +16,7 @@ public class UserService {
 
     public void createUser(UserRequest userRequest) {
         User user = new User();
-        user.setId(userRequest.getId());
+//        user.setId(userRequest.getId());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
         user.setGender(userRequest.getGender());
@@ -30,11 +30,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(String id) {
+    public User getUserById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void updateUser(UserRequest userRequest, String id) {
+    public void updateUser(UserRequest userRequest, Integer id) {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
             existingUser.setFirstName(userRequest.getFirstName());
@@ -49,7 +49,7 @@ public class UserService {
 
     }
 
-    public void deleteUserById(String id) {
+    public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
     }
 

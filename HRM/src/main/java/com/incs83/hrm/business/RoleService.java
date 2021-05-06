@@ -26,11 +26,11 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Role getRoleById(String id){
+    public Role getRoleById(Integer id){
         return roleRepository.findById(id).orElse(null);
     }
 
-    public void updateRole(RoleRequest roleRequest,String id){
+    public void updateRole(RoleRequest roleRequest,Integer id){
         Role existingRole = roleRepository.findById(id).orElse(null);
         if (existingRole != null) {
             existingRole.setName(roleRequest.getName());
@@ -39,7 +39,7 @@ public class RoleService {
             roleRepository.save(existingRole);
         }
     }
-    public void deleteRoleById(String id){
+    public void deleteRoleById(Integer id){
         roleRepository.deleteById(id);
     }
 }

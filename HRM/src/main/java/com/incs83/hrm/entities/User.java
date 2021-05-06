@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class User extends Parent {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -22,11 +22,11 @@ public class User extends Parent {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

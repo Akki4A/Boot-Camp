@@ -26,11 +26,11 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public Address getAddressById(String id){
+    public Address getAddressById(Integer id){
         return addressRepository.findById(id).orElse(null);
     }
 
-    public void updateAddressById(AddressRequest addressRequest, String id) {
+    public void updateAddressById(AddressRequest addressRequest, Integer id) {
         Address existingAddress = addressRepository.findById(id).orElse(null);
         if (existingAddress != null) {
             existingAddress.setState(addressRequest.getState());
@@ -41,7 +41,7 @@ public class AddressService {
         }
 
     }
-    public void deleteAddressById(String id){
+    public void deleteAddressById(Integer id){
         addressRepository.deleteById(id);
     }
 

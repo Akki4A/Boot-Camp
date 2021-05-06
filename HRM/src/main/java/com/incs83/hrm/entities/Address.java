@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Address extends Parent  {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     @Column(name = "pin_code")
     private String pinCode;
     @Column(name = "state")
@@ -19,11 +19,11 @@ public class Address extends Parent  {
     @Column(name = "colony")
     private String colony;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
