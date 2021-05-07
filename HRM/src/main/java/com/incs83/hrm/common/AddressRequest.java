@@ -1,19 +1,21 @@
 package com.incs83.hrm.common;
 
+import java.util.UUID;
+
 public class AddressRequest {
 
-    private int id;
+    private UUID id;
     private String pinCode;
     private String state;
     private String city;
-    private int houseNumber;
+    private String houseNumber;
     private String colony;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -41,11 +43,11 @@ public class AddressRequest {
         this.city = city;
     }
 
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 

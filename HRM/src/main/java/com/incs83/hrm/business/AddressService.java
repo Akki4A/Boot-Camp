@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class AddressService {
 
@@ -26,11 +28,11 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public Address getAddressById(Integer id){
+    public Address getAddressById(UUID id){
         return addressRepository.findById(id).orElse(null);
     }
 
-    public void updateAddressById(AddressRequest addressRequest, Integer id) {
+    public void updateAddressById(AddressRequest addressRequest, UUID id) {
         Address existingAddress = addressRepository.findById(id).orElse(null);
         if (existingAddress != null) {
             existingAddress.setState(addressRequest.getState());
@@ -41,7 +43,7 @@ public class AddressService {
         }
 
     }
-    public void deleteAddressById(Integer id){
+    public void deleteAddressById(UUID id){
         addressRepository.deleteById(id);
     }
 

@@ -1,16 +1,18 @@
 package com.incs83.hrm.common;
 
+import java.util.UUID;
+
 public class DepartmentRequest {
 
-    private int id;
+    private UUID id;
     private String name;
     private String description;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

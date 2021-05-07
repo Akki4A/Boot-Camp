@@ -1,13 +1,14 @@
 package com.incs83.hrm.business;
 
 import com.incs83.hrm.common.RoleRequest;
-import com.incs83.hrm.entities.Address;
 import com.incs83.hrm.entities.Role;
 import com.incs83.hrm.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class RoleService {
 
@@ -26,11 +27,11 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Role getRoleById(Integer id){
+    public Role getRoleById(UUID id){
         return roleRepository.findById(id).orElse(null);
     }
 
-    public void updateRole(RoleRequest roleRequest,Integer id){
+    public void updateRole(RoleRequest roleRequest,UUID id){
         Role existingRole = roleRepository.findById(id).orElse(null);
         if (existingRole != null) {
             existingRole.setName(roleRequest.getName());
@@ -39,7 +40,7 @@ public class RoleService {
             roleRepository.save(existingRole);
         }
     }
-    public void deleteRoleById(Integer id){
+    public void deleteRoleById(UUID id){
         roleRepository.deleteById(id);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class DepartmentService {
     @Autowired
@@ -22,11 +24,11 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public Department getDepartmentById(Integer id){
+    public Department getDepartmentById(UUID id){
         return departmentRepository.findById(id).orElse(null);
     }
 
-    public void updateDepartment(DepartmentRequest departmentRequest, Integer id){
+    public void updateDepartment(DepartmentRequest departmentRequest, UUID id){
         Department existingDepartment = departmentRepository.findById(id).orElse(null);
         if (existingDepartment != null) {
             existingDepartment.setName(departmentRequest.getName());
@@ -34,7 +36,7 @@ public class DepartmentService {
             departmentRepository.save(existingDepartment);
         }
     }
-    public void deleteDepartmentById(Integer id){
+    public void deleteDepartmentById(UUID id){
         departmentRepository.deleteById(id);
     }
 }
