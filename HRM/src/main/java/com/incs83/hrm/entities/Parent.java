@@ -2,16 +2,21 @@ package com.incs83.hrm.entities;
 
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
 
+@MappedSuperclass
 public class Parent {
 
     @Column(name = "created_by")
     private String createdBy;
+
     @Column(name = "updated_by")
     private String updatedBy;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
+
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 

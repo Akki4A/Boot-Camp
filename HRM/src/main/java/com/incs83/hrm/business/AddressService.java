@@ -6,6 +6,8 @@ import com.incs83.hrm.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +24,8 @@ public class AddressService {
         address.setCity(addressRequest.getCity());
         address.setColony(addressRequest.getColony());
         address.setHouseNumber(addressRequest.getHouseNumber());
+        address.setCreatedAt(new Timestamp(new Date().getTime()));
+        address.setCreatedBy("Dev_Department");
         addressRepository.save(address);
     }
     public List<Address> getAllAddress(){
@@ -39,6 +43,8 @@ public class AddressService {
             existingAddress.setCity(addressRequest.getCity());
             existingAddress.setColony(addressRequest.getColony());
             existingAddress.setHouseNumber(addressRequest.getHouseNumber());
+            existingAddress.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingAddress.setUpdatedBy("Dev_Department");
             addressRepository.save(existingAddress);
         }
 

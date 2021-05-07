@@ -6,6 +6,8 @@ import com.incs83.hrm.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +20,8 @@ public class DepartmentService {
         Department department = new Department();
         department.setName(departmentRequest.getName());
         department.setDescription(departmentRequest.getDescription());
+        department.setCreatedAt(new Timestamp(new Date().getTime()));
+        department.setCreatedBy("Dev_Department");
         departmentRepository.save(department);
     }
     public List<Department> getAllDepartment(){
@@ -33,6 +37,8 @@ public class DepartmentService {
         if (existingDepartment != null) {
             existingDepartment.setName(departmentRequest.getName());
             existingDepartment.setDescription(departmentRequest.getDescription());
+            existingDepartment.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingDepartment.setUpdatedBy("Dev_Department");
             departmentRepository.save(existingDepartment);
         }
     }
