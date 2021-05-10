@@ -1,5 +1,7 @@
 package com.incs83.hrm.common;
 
+import com.incs83.hrm.entities.Address;
+
 import java.util.UUID;
 
 public class UserRequest {
@@ -11,6 +13,15 @@ public class UserRequest {
     private String dateOfBirth;
     private String email;
     private String phoneNumber;
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public UUID getId() {
         return id;
