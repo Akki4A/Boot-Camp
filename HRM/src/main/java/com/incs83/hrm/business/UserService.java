@@ -6,6 +6,8 @@ import com.incs83.hrm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,13 +19,14 @@ public class UserService {
 
     public void createUser(UserRequest userRequest) {
         User user = new User();
-//        user.setId(userRequest.getId());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
         user.setGender(userRequest.getGender());
         user.setDateOfBirth(userRequest.getDateOfBirth());
         user.setEmail(userRequest.getEmail());
         user.setPhoneNumber(userRequest.getPhoneNumber());
+        user.setCreatedAt(new Timestamp(new Date().getTime()));
+        user.setCreatedBy("Dev_Department");
         userRepository.save(user);
     }
 
@@ -44,6 +47,8 @@ public class UserService {
             existingUser.setDateOfBirth(userRequest.getDateOfBirth());
             existingUser.setEmail(userRequest.getEmail());
             existingUser.setPhoneNumber(userRequest.getPhoneNumber());
+            existingUser.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingUser.setUpdatedBy("Dev_Department");
             userRepository.save(existingUser);
         }
 

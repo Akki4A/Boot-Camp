@@ -1,17 +1,19 @@
 package com.incs83.hrm.common;
 
+import java.util.UUID;
+
 public class RoleRequest {
 
-    private int id;
+    private UUID id;
     private String name;
     private String description;
     private String permission;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

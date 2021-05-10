@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/address")
@@ -25,17 +26,17 @@ public class AddressController {
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public Address getAddressById(@PathVariable Integer id){
+    public Address getAddressById(@PathVariable UUID id){
         return addressService.getAddressById(id);
     }
 
     @RequestMapping(path = "{id}",method = RequestMethod.PUT)
-    public void updateAddressByID(@RequestBody AddressRequest addressRequest, @PathVariable Integer id){
+    public void updateAddressByID(@RequestBody AddressRequest addressRequest, @PathVariable UUID id){
         addressService.updateAddressById(addressRequest,id);
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.DELETE)
-    public void deleteAddressById(@PathVariable Integer id){
+    public void deleteAddressById(@PathVariable UUID id){
         addressService.deleteAddressById(id);
     }
 }

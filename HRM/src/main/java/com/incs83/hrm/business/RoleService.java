@@ -1,13 +1,16 @@
 package com.incs83.hrm.business;
 
 import com.incs83.hrm.common.RoleRequest;
-import com.incs83.hrm.entities.Address;
 import com.incs83.hrm.entities.Role;
 import com.incs83.hrm.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class RoleService {
 
@@ -19,6 +22,8 @@ public class RoleService {
         role.setName(roleRequest.getName());
         role.setDescription(roleRequest.getDescription());
         role.setPermission(roleRequest.getPermission());
+        role.setCreatedAt(new Timestamp(new Date().getTime()));
+        role.setCreatedBy("Dev_Department");
         roleRepository.save(role);
     }
 
@@ -26,20 +31,22 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Role getRoleById(Integer id){
+    public Role getRoleById(UUID id){
         return roleRepository.findById(id).orElse(null);
     }
 
-    public void updateRole(RoleRequest roleRequest,Integer id){
+    public void updateRole(RoleRequest roleRequest,UUID id){
         Role existingRole = roleRepository.findById(id).orElse(null);
         if (existingRole != null) {
             existingRole.setName(roleRequest.getName());
             existingRole.setDescription(roleRequest.getDescription());
             existingRole.setPermission(roleRequest.getPermission());
+            existingRole.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingRole.setUpdatedBy("Dev_Department");
             roleRepository.save(existingRole);
         }
     }
-    public void deleteRoleById(Integer id){
+    public void deleteRoleById(UUID id){
         roleRepository.deleteById(id);
     }
 }

@@ -13,8 +13,8 @@ public class User extends Parent {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type="uuid-char")
-    @Column(name = "id", columnDefinition = "VARCHAR(255)")
+    @Type(type = "uuid-char")
+    @Column(name = "user_id", columnDefinition = "VARCHAR(255)")
     private UUID id;
     @Column(name = "first_name")
     private String firstName;

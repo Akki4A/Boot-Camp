@@ -1,13 +1,24 @@
 package com.incs83.hrm.entities;
 
-import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import java.sql.Timestamp;
+
+@MappedSuperclass
 public class Parent {
 
+    @Column(name = "created_by")
     private String createdBy;
+
+    @Column(name = "updated_by")
     private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
     public String getCreatedBy() {
         return createdBy;
@@ -25,19 +36,19 @@ public class Parent {
         this.updatedBy = updatedBy;
     }
 
-    public Date getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

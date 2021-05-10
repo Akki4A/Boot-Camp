@@ -1,13 +1,20 @@
 package com.incs83.hrm.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "address")
 public class Address extends Parent  {
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type="uuid-char")
+    @Column(name = "address_id", columnDefinition = "VARCHAR(255)")
+    private UUID id;
     @Column(name = "pin_code")
     private String pinCode;
     @Column(name = "state")
@@ -15,15 +22,15 @@ public class Address extends Parent  {
     @Column(name = "city")
     private String city;
     @Column(name = "house_number")
-    private int houseNumber;
+    private String houseNumber;
     @Column(name = "colony")
     private String colony;
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -51,11 +58,11 @@ public class Address extends Parent  {
         this.city = city;
     }
 
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 

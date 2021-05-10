@@ -6,7 +6,11 @@ import com.incs83.hrm.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class DepartmentService {
     @Autowired
@@ -16,25 +20,29 @@ public class DepartmentService {
         Department department = new Department();
         department.setName(departmentRequest.getName());
         department.setDescription(departmentRequest.getDescription());
+        department.setCreatedAt(new Timestamp(new Date().getTime()));
+        department.setCreatedBy("Dev_Department");
         departmentRepository.save(department);
     }
     public List<Department> getAllDepartment(){
         return departmentRepository.findAll();
     }
 
-    public Department getDepartmentById(Integer id){
+    public Department getDepartmentById(UUID id){
         return departmentRepository.findById(id).orElse(null);
     }
 
-    public void updateDepartment(DepartmentRequest departmentRequest, Integer id){
+    public void updateDepartment(DepartmentRequest departmentRequest, UUID id){
         Department existingDepartment = departmentRepository.findById(id).orElse(null);
         if (existingDepartment != null) {
             existingDepartment.setName(departmentRequest.getName());
             existingDepartment.setDescription(departmentRequest.getDescription());
+            existingDepartment.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingDepartment.setUpdatedBy("Dev_Department");
             departmentRepository.save(existingDepartment);
         }
     }
-    public void deleteDepartmentById(Integer id){
+    public void deleteDepartmentById(UUID id){
         departmentRepository.deleteById(id);
     }
 }
