@@ -28,6 +28,7 @@ public class UserService {
         user.setCreatedAt(new Timestamp(new Date().getTime()));
         user.setCreatedBy("Dev_Department");
         user.setAddress(userRequest.getAddress());
+        user.setDepartments(userRequest.getDepartments());
         userRepository.save(user);
     }
 
@@ -51,6 +52,7 @@ public class UserService {
             existingUser.setUpdatedAt(new Timestamp(new Date().getTime()));
             existingUser.setUpdatedBy("Dev_Department");
             existingUser.setAddress(userRequest.getAddress());
+            existingUser.setDepartments(userRequest.getDepartments());
             userRepository.save(existingUser);
         }
 
