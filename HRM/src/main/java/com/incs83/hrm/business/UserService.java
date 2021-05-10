@@ -27,6 +27,7 @@ public class UserService {
         user.setPhoneNumber(userRequest.getPhoneNumber());
         user.setCreatedAt(new Timestamp(new Date().getTime()));
         user.setCreatedBy("Dev_Department");
+        user.setAddress(userRequest.getAddress());
         userRepository.save(user);
     }
 
@@ -49,6 +50,7 @@ public class UserService {
             existingUser.setPhoneNumber(userRequest.getPhoneNumber());
             existingUser.setUpdatedAt(new Timestamp(new Date().getTime()));
             existingUser.setUpdatedBy("Dev_Department");
+            existingUser.setAddress(userRequest.getAddress());
             userRepository.save(existingUser);
         }
 
