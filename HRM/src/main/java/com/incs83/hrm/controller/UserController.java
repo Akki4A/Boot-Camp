@@ -2,10 +2,10 @@ package com.incs83.hrm.controller;
 
 import com.incs83.hrm.business.UserService;
 import com.incs83.hrm.common.UserRequest;
-import com.incs83.hrm.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,12 +22,12 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getAllUser(){
+    public List<UserRequest> getAllUser(){
         return userService.getAllUser();
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public User getUserById(@PathVariable UUID id){
+    public UserRequest getUserById(@PathVariable UUID id){
         return userService.getUserById(id);
     }
 
@@ -40,4 +40,7 @@ public class UserController {
     public void deleteUserById(@PathVariable UUID id){
         userService.deleteUserById(id);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAllUser(){ userService.deleteAllUser();}
 }

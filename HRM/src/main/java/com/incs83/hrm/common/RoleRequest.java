@@ -1,5 +1,8 @@
 package com.incs83.hrm.common;
 
+import com.incs83.hrm.entities.User;
+
+import java.util.List;
 import java.util.UUID;
 
 public class RoleRequest {
@@ -8,6 +11,15 @@ public class RoleRequest {
     private String name;
     private String description;
     private String permission;
+    private List<User> users;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     public UUID getId() {
         return id;

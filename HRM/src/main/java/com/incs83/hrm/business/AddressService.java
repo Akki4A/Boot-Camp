@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,12 +29,32 @@ public class AddressService {
         address.setCreatedBy("Dev_Department");
         addressRepository.save(address);
     }
-    public List<Address> getAllAddress(){
-        return addressRepository.findAll();
+    public List<AddressRequest> getAllAddress(){
+        List<Address> addresses = addressRepository.findAll();
+        List<AddressRequest> addressRequestList = new ArrayList<>();
+        for (Address address : addresses) {
+            AddressRequest addressRequest = new AddressRequest();
+            addressRequest.setId(address.getId());
+            addressRequest.setPinCode(address.getPinCode());
+            addressRequest.setState(address.getState());
+            addressRequest.setCity(address.getCity());
+            addressRequest.setColony(address.getColony());
+            addressRequest.setHouseNumber(address.getHouseNumber());
+            addressRequestList.add(addressRequest);
+        }
+        return addressRequestList;
     }
 
-    public Address getAddressById(UUID id){
-        return addressRepository.findById(id).orElse(null);
+    public AddressRequest getAddressById(UUID id){
+        Address address = addressRepository.findById(id).orElse(new Address());
+        AddressRequest addressRequest = new AddressRequest();
+        addressRequest.setId(address.getId());
+        addressRequest.setPinCode(address.getPinCode());
+        addressRequest.setState(address.getState());
+        addressRequest.setCity(address.getCity());
+        addressRequest.setColony(address.getColony());
+        addressRequest.setHouseNumber(address.getHouseNumber());
+        return addressRequest;
     }
 
     public void updateAddressById(AddressRequest addressRequest, UUID id) {
@@ -53,4 +74,7 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
+    public void deleteAllAddress(){
+        addressRepository.deleteAll();
+    }
 }

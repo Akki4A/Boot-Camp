@@ -21,12 +21,12 @@ public class DepartmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Department> getAllDepartment() {
+    public List<DepartmentRequest> getAllDepartment() {
         return departmentService.getAllDepartment();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Department getDepartmentById(@PathVariable UUID id) {
+    public DepartmentRequest getDepartmentById(@PathVariable UUID id) {
         return departmentService.getDepartmentById(id);
     }
 
@@ -38,5 +38,10 @@ public class DepartmentController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void deleteDepartmentById(@PathVariable UUID id) {
         departmentService.deleteDepartmentById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAllDepartment(){
+        departmentService.deleteAllDepartment();
     }
 }

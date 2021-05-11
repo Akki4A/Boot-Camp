@@ -16,18 +16,18 @@ public class UserRequest {
     private String email;
     private String phoneNumber;
     private Address address;
-    private List<Department> departments;
-
-    public List<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
+    private List<Department> department;
 
     public Address getAddress() {
         return address;
+    }
+
+    public List<Department> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<Department> department) {
+        this.department = department;
     }
 
     public void setAddress(Address address) {
