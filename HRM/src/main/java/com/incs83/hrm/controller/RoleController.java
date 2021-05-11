@@ -21,12 +21,12 @@ public class RoleController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Role> getAllRole() {
+    public List<RoleRequest> getAllRole() {
         return roleService.getAllRole();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Role getRoleById(@PathVariable UUID id) {
+    public RoleRequest getRoleById(@PathVariable UUID id) {
         return roleService.getRoleById(id);
     }
 
@@ -39,4 +39,7 @@ public class RoleController {
     public void deleteRoleById(@PathVariable UUID id) {
         roleService.deleteRoleById(id);
     }
+
+    @RequestMapping( method = RequestMethod.DELETE)
+    public void deleteAllRole() { roleService.deleteAllRole(); }
 }
