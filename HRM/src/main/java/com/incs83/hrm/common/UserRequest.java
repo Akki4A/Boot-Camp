@@ -1,7 +1,9 @@
 package com.incs83.hrm.common;
 
 import com.incs83.hrm.entities.Address;
+import com.incs83.hrm.entities.Department;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserRequest {
@@ -14,9 +16,18 @@ public class UserRequest {
     private String email;
     private String phoneNumber;
     private Address address;
+    private List<Department> department;
 
     public Address getAddress() {
         return address;
+    }
+
+    public List<Department> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<Department> department) {
+        this.department = department;
     }
 
     public void setAddress(Address address) {

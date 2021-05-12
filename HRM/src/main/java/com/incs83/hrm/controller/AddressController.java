@@ -2,7 +2,6 @@ package com.incs83.hrm.controller;
 
 import com.incs83.hrm.business.AddressService;
 import com.incs83.hrm.common.AddressRequest;
-import com.incs83.hrm.entities.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +20,12 @@ public class AddressController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Address> getAllAddress(){
+    public List<AddressRequest> getAllAddress(){
         return addressService.getAllAddress();
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public Address getAddressById(@PathVariable UUID id){
+    public AddressRequest getAddressById(@PathVariable UUID id){
         return addressService.getAddressById(id);
     }
 
@@ -39,4 +38,7 @@ public class AddressController {
     public void deleteAddressById(@PathVariable UUID id){
         addressService.deleteAddressById(id);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAllAddress(){ addressService.deleteAllAddress(); }
 }
