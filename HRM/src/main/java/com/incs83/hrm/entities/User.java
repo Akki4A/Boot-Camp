@@ -1,6 +1,7 @@
 package com.incs83.hrm.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -33,19 +34,10 @@ public class User extends Parent {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_address_id")
     private Address address;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_department",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "department_id")})
+
+    @ManyToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<Department> departments = new HashSet<>();
-
-    public Set<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
-    }
 
     public Address getAddress() {
         return address;
@@ -109,6 +101,14 @@ public class User extends Parent {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 
     @Override
