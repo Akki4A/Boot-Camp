@@ -4,11 +4,15 @@ import com.incs83.hrm.common.UserRequest;
 import com.incs83.hrm.entities.Department;
 import com.incs83.hrm.entities.User;
 import com.incs83.hrm.repository.UserRepository;
+import com.incs83.hrm.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -24,9 +28,14 @@ public class UserService {
         user.setDateOfBirth(userRequest.getDateOfBirth());
         user.setEmail(userRequest.getEmail());
         user.setPhoneNumber(userRequest.getPhoneNumber());
-        user.setCreatedAt(new Timestamp(new Date().getTime()));
+        user.setCreatedAt(CommonUtils.getCurrentTime());
         user.setCreatedBy("Dev_Department");
-
+        user.setAddress(userRequest.getAddress());
+        CommonUtils.createAudit(userRequest.getAddress());
+        user.setDepartments(userRequest.getDepartment());
+        for (Department department : userRequest.getDepartment()) {
+            CommonUtils.createAudit(department);
+        }
         userRepository.save(user);
     }
 
@@ -50,7 +59,7 @@ public class UserService {
         return userRequestList;
     }
 
-    public UserRequest getUserById(UUID id){
+    public UserRequest getUserById(UUID id) {
         User user = userRepository.findById(id).orElse(new User());
         UserRequest userRequest = new UserRequest();
         userRequest.setId(user.getId());
@@ -82,7 +91,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void deleteAllUser(){
+    public void deleteAllUser() {
         userRepository.deleteAll();
     }
 }
