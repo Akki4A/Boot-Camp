@@ -82,7 +82,7 @@ public LinkedHashMap<String, Object> getRoleById(UUID id) {
     public void mapToUser(Set<UUID> userIds, Role role) {
         for (UUID userId : userIds) {
             User user = userRepository.findById(userId).get();
-            user.getRole().add(role);
+            user.setRole(user.getRole());
             role.getUsers().add(user);
             CommonUtils.createAudit(user);
         }

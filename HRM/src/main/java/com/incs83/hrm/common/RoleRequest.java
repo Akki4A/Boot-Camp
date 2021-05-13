@@ -1,9 +1,6 @@
 package com.incs83.hrm.common;
 
-import com.incs83.hrm.entities.User;
-
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 

@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,17 +23,14 @@ public class Role extends Parent {
     private String description;
     @Column(name = "permission")
     private String permission;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = { @JoinColumn(name = "role_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private Set<User> users;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<User> users;
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

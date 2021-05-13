@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,13 +40,15 @@ public class User extends Parent {
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<Department> departments = new HashSet<>();
 
-    private Set<Role> role;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public Set<Role> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Set<Role> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
