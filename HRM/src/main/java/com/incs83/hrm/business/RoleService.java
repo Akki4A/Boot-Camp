@@ -59,7 +59,7 @@ public LinkedHashMap<String, Object> getRoleById(UUID id) {
             setUser.put("email", user.getEmail());
             userList.add(setUser);
         }
-        setRoleResp.put("users", userList);
+        setRoleResp.put("userIds", userList);
         return setRoleResp;
     }
 
@@ -82,7 +82,7 @@ public LinkedHashMap<String, Object> getRoleById(UUID id) {
     public void mapToUser(Set<UUID> userIds, Role role) {
         for (UUID userId : userIds) {
             User user = userRepository.findById(userId).get();
-            user.setRole(user.getRole());
+            user.setRole(role);
             role.getUsers().add(user);
             CommonUtils.createAudit(user);
         }
