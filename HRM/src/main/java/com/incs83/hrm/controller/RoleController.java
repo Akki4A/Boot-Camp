@@ -6,6 +6,8 @@ import com.incs83.hrm.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,12 +23,12 @@ public class RoleController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<RoleRequest> getAllRole() {
+    public List<HashMap<String, Object>> getAllRole() {
         return roleService.getAllRole();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public RoleRequest getRoleById(@PathVariable UUID id) {
+    public LinkedHashMap<String, Object> getRoleById(@PathVariable UUID id) {
         return roleService.getRoleById(id);
     }
 

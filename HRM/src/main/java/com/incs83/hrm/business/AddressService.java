@@ -2,15 +2,14 @@ package com.incs83.hrm.business;
 
 import com.incs83.hrm.common.AddressRequest;
 import com.incs83.hrm.entities.Address;
+import com.incs83.hrm.entities.Department;
 import com.incs83.hrm.repository.AddressRepository;
+import com.incs83.hrm.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AddressService {
@@ -25,36 +24,22 @@ public class AddressService {
         address.setCity(addressRequest.getCity());
         address.setColony(addressRequest.getColony());
         address.setHouseNumber(addressRequest.getHouseNumber());
-        address.setCreatedAt(new Timestamp(new Date().getTime()));
+        address.setCreatedAt(CommonUtils.getCurrentTime());
         address.setCreatedBy("Dev_Department");
         addressRepository.save(address);
     }
-    public List<AddressRequest> getAllAddress(){
+    public List<HashMap<String, Object>> getAllAddress() {
         List<Address> addresses = addressRepository.findAll();
-        List<AddressRequest> addressRequestList = new ArrayList<>();
+        List<HashMap<String, Object>> addressRequestList = new ArrayList<>();
         for (Address address : addresses) {
-            AddressRequest addressRequest = new AddressRequest();
-            addressRequest.setId(address.getId());
-            addressRequest.setPinCode(address.getPinCode());
-            addressRequest.setState(address.getState());
-            addressRequest.setCity(address.getCity());
-            addressRequest.setColony(address.getColony());
-            addressRequest.setHouseNumber(address.getHouseNumber());
-            addressRequestList.add(addressRequest);
+            addressRequestList.add(setAddressResponse(address));
         }
         return addressRequestList;
     }
 
-    public AddressRequest getAddressById(UUID id){
+    public LinkedHashMap<String, Object> getAddressById(UUID id) {
         Address address = addressRepository.findById(id).orElse(new Address());
-        AddressRequest addressRequest = new AddressRequest();
-        addressRequest.setId(address.getId());
-        addressRequest.setPinCode(address.getPinCode());
-        addressRequest.setState(address.getState());
-        addressRequest.setCity(address.getCity());
-        addressRequest.setColony(address.getColony());
-        addressRequest.setHouseNumber(address.getHouseNumber());
-        return addressRequest;
+        return setAddressResponse(address);
     }
 
     public void updateAddressById(AddressRequest addressRequest, UUID id) {
@@ -64,7 +49,7 @@ public class AddressService {
             existingAddress.setCity(addressRequest.getCity());
             existingAddress.setColony(addressRequest.getColony());
             existingAddress.setHouseNumber(addressRequest.getHouseNumber());
-            existingAddress.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingAddress.setUpdatedAt(CommonUtils.getCurrentTime());
             existingAddress.setUpdatedBy("Dev_Department");
             addressRepository.save(existingAddress);
         }
@@ -76,5 +61,15 @@ public class AddressService {
 
     public void deleteAllAddress(){
         addressRepository.deleteAll();
+    }
+
+    public LinkedHashMap<String, Object> setAddressResponse(Address address){
+        LinkedHashMap<String, Object> setAddressResp = new LinkedHashMap<>();
+        setAddressResp.put("id", address.getId());
+        setAddressResp.put("house number", address.getHouseNumber());
+        setAddressResp.put("colony", address.getColony());
+        setAddressResp.put("city", address.getCity());
+        setAddressResp.put("state", address.getState());
+        return setAddressResp;
     }
 }

@@ -2,15 +2,14 @@ package com.incs83.hrm.business;
 
 import com.incs83.hrm.common.RoleRequest;
 import com.incs83.hrm.entities.Role;
+import com.incs83.hrm.entities.User;
 import com.incs83.hrm.repository.RoleRepository;
+import com.incs83.hrm.repository.UserRepository;
+import com.incs83.hrm.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class RoleService {
@@ -18,41 +17,50 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public void createRole(RoleRequest roleRequest){
         Role role = new Role();
         role.setName(roleRequest.getName());
         role.setDescription(roleRequest.getDescription());
         role.setPermission(roleRequest.getPermission());
-        role.setCreatedAt(new Timestamp(new Date().getTime()));
+        role.setCreatedAt(CommonUtils.getCurrentTime());
         role.setCreatedBy("Dev_Department");
-        role.setUsers(roleRequest.getUsers());
+        mapToUser(roleRequest.getUserIds(), role);
         roleRepository.save(role);
     }
 
-    public List<RoleRequest> getAllRole() {
+    public List<HashMap<String, Object>> getAllRole() {
         List<Role> roles = roleRepository.findAll();
-        List<RoleRequest> roleRequestList = new ArrayList<>();
+        List<HashMap<String, Object>> roleRequestList = new ArrayList<>();
         for (Role role : roles) {
-            RoleRequest roleRequest = new RoleRequest();
-            roleRequest.setId(role.getId());
-            roleRequest.setName(role.getName());
-            roleRequest.setDescription(role.getDescription());
-            roleRequest.setPermission(role.getPermission());
-            roleRequest.setUsers(role.getUsers());
-            roleRequestList.add(roleRequest);
+            roleRequestList.add(setRoleResponse(role));
         }
         return roleRequestList;
     }
 
-    public RoleRequest getRoleById(UUID id){
-        Role role = roleRepository.findById(id).orElse(new Role());
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setId(role.getId());
-        roleRequest.setName(role.getName());
-        roleRequest.setDescription(role.getDescription());
-        roleRequest.setPermission(role.getPermission());
-        roleRequest.setUsers(role.getUsers());
-        return roleRequest;
+public LinkedHashMap<String, Object> getRoleById(UUID id) {
+    Role role =roleRepository.findById(id).orElse(new Role());
+    return setRoleResponse(role);
+}
+
+    public LinkedHashMap<String, Object> setRoleResponse(Role role){
+        LinkedHashMap<String, Object > setRoleResp = new LinkedHashMap<>();
+        setRoleResp.put("id", role.getId());
+        setRoleResp.put("role name", role.getName());
+        setRoleResp.put("description", role.getDescription());
+        setRoleResp.put("permission", role.getPermission());
+        List<HashMap<String, Object>> userList = new ArrayList<>();
+        for (User user : role.getUsers()){
+            LinkedHashMap<String, Object> setUser = new LinkedHashMap<>();
+            setUser.put("user name", user.getFirstName() + " " + user.getLastName());
+            setUser.put("phone number", user.getPhoneNumber());
+            setUser.put("email", user.getEmail());
+            userList.add(setUser);
+        }
+        setRoleResp.put("users", userList);
+        return setRoleResp;
     }
 
     public void updateRole(RoleRequest roleRequest,UUID id){
@@ -61,9 +69,8 @@ public class RoleService {
         existingRole.setName(roleRequest.getName());
         existingRole.setDescription(roleRequest.getDescription());
         existingRole.setPermission(roleRequest.getPermission());
-        existingRole.setUpdatedAt(new Timestamp(new Date().getTime()));
+        existingRole.setUpdatedAt(CommonUtils.getCurrentTime());
         existingRole.setUpdatedBy("Dev_Department");
-        existingRole.setUsers(roleRequest.getUsers());
         roleRepository.save(existingRole);
     }
     public void deleteRoleById(UUID id){
@@ -71,4 +78,13 @@ public class RoleService {
     }
 
     public void deleteAllRole(){ roleRepository.deleteAll();}
+
+    public void mapToUser(Set<UUID> userIds, Role role) {
+        for (UUID userId : userIds) {
+            User user = userRepository.findById(userId).get();
+            user.getRole().add(role);
+            role.getUsers().add(user);
+            CommonUtils.createAudit(user);
+        }
+    }
 }

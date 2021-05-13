@@ -9,7 +9,6 @@ import com.incs83.hrm.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -61,7 +60,7 @@ public class UserService {
         existingUser.setDateOfBirth(userRequest.getDateOfBirth());
         existingUser.setEmail(userRequest.getEmail());
         existingUser.setPhoneNumber(userRequest.getPhoneNumber());
-        existingUser.setUpdatedAt(new Timestamp(new Date().getTime()));
+        existingUser.setUpdatedAt(CommonUtils.getCurrentTime());
         existingUser.setUpdatedBy("Dev_Department");
         existingUser.setAddress(userRequest.getAddress());
         userRepository.save(existingUser);
@@ -86,20 +85,20 @@ public class UserService {
     }
 
     public LinkedHashMap<String, Object> setUserResponse(User user) {
-        LinkedHashMap<String, Object> setResp = new LinkedHashMap<>();
-        setResp.put("id", user.getId());
-        setResp.put("full name", user.getFirstName() + " " + user.getLastName());
-        setResp.put("d.o.b", user.getDateOfBirth());
-        setResp.put("email", user.getEmail());
-        setResp.put("gender", user.getGender());
-        setResp.put("contact", user.getPhoneNumber());
+        LinkedHashMap<String, Object> setUserResp = new LinkedHashMap<>();
+        setUserResp.put("id", user.getId());
+        setUserResp.put("full name", user.getFirstName() + " " + user.getLastName());
+        setUserResp.put("d.o.b", user.getDateOfBirth());
+        setUserResp.put("email", user.getEmail());
+        setUserResp.put("gender", user.getGender());
+        setUserResp.put("contact", user.getPhoneNumber());
         LinkedHashMap<String, Object> setAddress = new LinkedHashMap<>();
         setAddress.put("house no.", user.getAddress().getHouseNumber());
         setAddress.put("landmark", user.getAddress().getColony());
         setAddress.put("city", user.getAddress().getCity());
         setAddress.put("pin code", user.getAddress().getPinCode());
         setAddress.put("state", user.getAddress().getState());
-        setResp.put("address", setAddress);
+        setUserResp.put("address", setAddress);
         List<HashMap<String, Object>> deptList = new ArrayList<>();
         for (Department department : user.getDepartments()) {
             LinkedHashMap<String, Object> setDept = new LinkedHashMap<>();
@@ -107,7 +106,7 @@ public class UserService {
             setDept.put("department description", department.getDescription());
             deptList.add(setDept);
         }
-        setResp.put("departments", deptList);
-        return setResp;
+        setUserResp.put("departments", deptList);
+        return setUserResp;
     }
 }

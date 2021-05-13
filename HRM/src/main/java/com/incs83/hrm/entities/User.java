@@ -39,6 +39,16 @@ public class User extends Parent {
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<Department> departments = new HashSet<>();
 
+    private Set<Role> role;
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+
     public Address getAddress() {
         return address;
     }

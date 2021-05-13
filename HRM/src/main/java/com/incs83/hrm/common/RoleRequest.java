@@ -2,7 +2,9 @@ package com.incs83.hrm.common;
 
 import com.incs83.hrm.entities.User;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class RoleRequest {
@@ -11,14 +13,14 @@ public class RoleRequest {
     private String name;
     private String description;
     private String permission;
-    private List<User> users;
+    private Set<UUID> userIds = new HashSet<>();
 
-    public List<User> getUsers() {
-        return users;
+    public Set<UUID> getUserIds() {
+        return userIds;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserIds(Set<UUID> userIds) {
+        this.userIds = userIds;
     }
 
     public UUID getId() {

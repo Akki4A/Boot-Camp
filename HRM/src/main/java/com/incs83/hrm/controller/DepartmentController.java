@@ -6,6 +6,8 @@ import com.incs83.hrm.entities.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,12 +23,12 @@ public class DepartmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<DepartmentRequest> getAllDepartment() {
+    public List<HashMap<String, Object>>  getAllDepartment() {
         return departmentService.getAllDepartment();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public DepartmentRequest getDepartmentById(@PathVariable UUID id) {
+    public LinkedHashMap<String, Object> getDepartmentById(@PathVariable UUID id) {
         return departmentService.getDepartmentById(id);
     }
 

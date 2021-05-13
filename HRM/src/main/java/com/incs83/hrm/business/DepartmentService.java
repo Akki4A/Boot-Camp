@@ -3,17 +3,15 @@ package com.incs83.hrm.business;
 import com.incs83.hrm.common.DepartmentRequest;
 import com.incs83.hrm.entities.Department;
 import com.incs83.hrm.repository.DepartmentRepository;
+import com.incs83.hrm.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class DepartmentService {
+
     @Autowired
     private DepartmentRepository departmentRepository;
 
@@ -21,30 +19,23 @@ public class DepartmentService {
         Department department = new Department();
         department.setName(departmentRequest.getName());
         department.setDescription(departmentRequest.getDescription());
-        department.setCreatedAt(new Timestamp(new Date().getTime()));
+        department.setCreatedAt(CommonUtils.getCurrentTime());
         department.setCreatedBy("Dev_Department");
         departmentRepository.save(department);
     }
-    public List<DepartmentRequest> getAllDepartment() {
+
+    public List<HashMap<String, Object>> getAllDepartment() {
         List<Department> departments = departmentRepository.findAll();
-        List<DepartmentRequest> departmentRequestList = new ArrayList<>();
+        List<HashMap<String, Object>> departmentRequestList = new ArrayList<>();
         for (Department department : departments) {
-            DepartmentRequest departmentRequest = new DepartmentRequest();
-            departmentRequest.setId(department.getId());
-            departmentRequest.setName(department.getName());
-            departmentRequest.setDescription(department.getDescription());
-            departmentRequestList.add(departmentRequest);
+            departmentRequestList.add(setDepartmentResponse(department));
         }
         return departmentRequestList;
     }
 
-    public DepartmentRequest getDepartmentById(UUID id){
+    public LinkedHashMap<String, Object> getDepartmentById(UUID id) {
         Department department = departmentRepository.findById(id).orElse(new Department());
-        DepartmentRequest departmentRequest = new DepartmentRequest();
-        departmentRequest.setId(department.getId());
-        departmentRequest.setName(department.getName());
-        departmentRequest.setDescription(department.getDescription());
-        return departmentRequest;
+        return setDepartmentResponse(department);
     }
 
     public void updateDepartment(DepartmentRequest departmentRequest, UUID id){
@@ -52,7 +43,7 @@ public class DepartmentService {
         if (existingDepartment != null) {
             existingDepartment.setName(departmentRequest.getName());
             existingDepartment.setDescription(departmentRequest.getDescription());
-            existingDepartment.setUpdatedAt(new Timestamp(new Date().getTime()));
+            existingDepartment.setUpdatedAt(CommonUtils.getCurrentTime());
             existingDepartment.setUpdatedBy("Dev_Department");
             departmentRepository.save(existingDepartment);
         }
@@ -62,4 +53,12 @@ public class DepartmentService {
     }
 
     public void deleteAllDepartment() { departmentRepository.deleteAll(); }
+
+    public LinkedHashMap<String, Object> setDepartmentResponse(Department department){
+        LinkedHashMap<String, Object> setDepartmentResp = new LinkedHashMap<>();
+        setDepartmentResp.put("id", department.getId());
+        setDepartmentResp.put("name", department.getName());
+        setDepartmentResp.put("description", department.getDescription());
+        return setDepartmentResp;
+    }
 }
