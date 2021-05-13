@@ -1,9 +1,9 @@
 package com.incs83.hrm.common;
 
 import com.incs83.hrm.entities.Address;
-import com.incs83.hrm.entities.Department;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class UserRequest {
@@ -16,18 +16,10 @@ public class UserRequest {
     private String email;
     private String phoneNumber;
     private Address address;
-    private List<Department> department;
+    private Set<UUID> departmentIds = new HashSet<>();
 
     public Address getAddress() {
         return address;
-    }
-
-    public List<Department> getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(List<Department> department) {
-        this.department = department;
     }
 
     public void setAddress(Address address) {
@@ -90,5 +82,11 @@ public class UserRequest {
         this.phoneNumber = phoneNumber;
     }
 
+    public Set<UUID> getDepartmentIds() {
+        return departmentIds;
+    }
 
+    public void setDepartmentIds(Set<UUID> departmentIds) {
+        this.departmentIds = departmentIds;
+    }
 }

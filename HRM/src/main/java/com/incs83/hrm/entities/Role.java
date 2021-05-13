@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -22,10 +23,7 @@ public class Role extends Parent {
     private String description;
     @Column(name = "permission")
     private String permission;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = { @JoinColumn(name = "role_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
 
     public List<User> getUsers() {

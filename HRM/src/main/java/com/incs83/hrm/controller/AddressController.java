@@ -5,6 +5,8 @@ import com.incs83.hrm.common.AddressRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,12 +22,12 @@ public class AddressController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<AddressRequest> getAllAddress(){
+    public List<HashMap<String, Object>> getAllAddress(){
         return addressService.getAllAddress();
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public AddressRequest getAddressById(@PathVariable UUID id){
+    public LinkedHashMap<String, Object> getAddressById(@PathVariable UUID id){
         return addressService.getAddressById(id);
     }
 

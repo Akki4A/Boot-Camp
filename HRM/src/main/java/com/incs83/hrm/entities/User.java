@@ -1,11 +1,14 @@
 package com.incs83.hrm.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -32,18 +35,21 @@ public class User extends Parent {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_address_id")
     private Address address;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_department",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "department_id") })
-    private List<Department> departments;
 
-    public List<Department> getDepartments() {
-        return departments;
+    @ManyToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private Set<Department> departments = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Address getAddress() {
@@ -108,6 +114,14 @@ public class User extends Parent {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 
     @Override
