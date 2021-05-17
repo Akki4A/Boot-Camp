@@ -3,10 +3,13 @@ package com.incs83.hrm.entities;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-public class Parent {
+public class Parent implements Serializable {
+
+    private static final long serialVersionUID = 8621286897427117337L;
 
     @Column(name = "created_by")
     private String createdBy;

@@ -47,7 +47,7 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         } catch (BadCredentialsException e){
-            throw new Exception("Incorrect username orPassword", e);
+            throw new Exception("Incorrect username or Password", e);
             }
 
         final UserDetails userDetails = userDetailsService
