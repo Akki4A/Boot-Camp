@@ -2,7 +2,6 @@ package com.incs83.hrm.config;
 
 import com.incs83.hrm.business.MyUserDetailsService;
 import com.incs83.hrm.filters.JwtRequestFilter;
-import com.incs83.hrm.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

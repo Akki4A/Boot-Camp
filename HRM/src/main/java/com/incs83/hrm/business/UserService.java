@@ -62,7 +62,7 @@ public class UserService {
         existingUser.setPhoneNumber(userRequest.getPhoneNumber());
         existingUser.setUpdatedAt(CommonUtils.getCurrentTime());
         existingUser.setUpdatedBy("Dev_Department");
-        existingUser.setAddress(userRequest.getAddress());
+//        existingUser.setAddress(userRequest.getAddress());
         userRepository.save(existingUser);
     }
 

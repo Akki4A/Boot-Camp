@@ -64,8 +64,7 @@ public LinkedHashMap<String, Object> getRoleById(UUID id) {
     }
 
     public void updateRole(RoleRequest roleRequest,UUID id){
-        Role existingRole = roleRepository.findById(id).orElse(null);
-        assert existingRole != null;
+        Role existingRole = roleRepository.findById(id).get();
         existingRole.setName(roleRequest.getName());
         existingRole.setDescription(roleRequest.getDescription());
         existingRole.setPermission(roleRequest.getPermission());

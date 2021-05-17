@@ -39,14 +39,12 @@ public class DepartmentService {
     }
 
     public void updateDepartment(DepartmentRequest departmentRequest, UUID id){
-        Department existingDepartment = departmentRepository.findById(id).orElse(null);
-        if (existingDepartment != null) {
+        Department existingDepartment = departmentRepository.findById(id).get();
             existingDepartment.setName(departmentRequest.getName());
             existingDepartment.setDescription(departmentRequest.getDescription());
             existingDepartment.setUpdatedAt(CommonUtils.getCurrentTime());
             existingDepartment.setUpdatedBy("Dev_Department");
             departmentRepository.save(existingDepartment);
-        }
     }
     public void deleteDepartmentById(UUID id){
         departmentRepository.deleteById(id);
