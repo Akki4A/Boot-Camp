@@ -5,6 +5,8 @@ import com.bootcamp.hrm.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,15 +20,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyUserDetailsService myUserDetailService;
+    private MyUserDetailsService myUserDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailService);
-    }
+
+//        MyUserDetailsService myUserDetailsService = new MyUserDetailsService();
+//        myUserDetailsService.loadUserByUsername()
+        auth.authenticationProvider(daoAuthenticationProvider());}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,5 +51,13 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(myUserDetailsService); // custom user service
+        provider.setPasswordEncoder(passwordEncoder()); // custom password encoder
+        return provider;
     }
 }
