@@ -1,16 +1,8 @@
-package com.bootcamp.hrm.common;
+package com.bootcamp.hrm.DTO;
 
-public class AuthenticationRequest {
+public class UserDTO {
     private String username;
     private String password;
-
-    public AuthenticationRequest() {
-    }
-
-    public AuthenticationRequest(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;
